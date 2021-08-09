@@ -28,16 +28,18 @@ let counter= 0;
 let rounds=25;
 
 const imgselection = document.getElementById('imgselection')
+let resultsection = document.getElementById('resultsection')
+
 
 let leftImg= document.getElementById('leftImg') ;
 let centerImg= document.getElementById('centerImg') ;
 let rightImg= document.getElementById('rightImg') ;
 
-
 function PickImgObject(name, src) {
     this.name = name;
     this.img = src;
     this.Shown = 0;
+    this.votesNum = 0;
     PickImgObject.all.push(this);
   }
   
@@ -74,13 +76,36 @@ render();
 
 imgselection.addEventListener('click', clickHandler);
 function clickHandler(e) {
-    if((e.target.id === 'leftImg' || e.target.id === 'rightImg') && counter < rounds){
+    if((e.target.id === 'leftImg' || e.target.id === 'centerImg' || e.target.id === 'rightImg') && counter < rounds){
+
+        if (e.target.id === 'leftImg') { PickImgObject.all[render.leftRandom].votesNum++; };
+        if (e.target.id === 'centerImg') { PickImgObject.all[render.centerRandom].votesNum++; };
+        if (e.target.id === 'rightImg') { PickImgObject.all[render.rightRandom].votesNum++; };
 
     render();
     counter++;
+    
 }
 }
 
+let buttonElement = document.createElement('button');
+buttonElement.id = 'TheResult' ;
+buttonElement.textContent = 'Results' ;
+resultsection.appendChild(buttonElement) ;
+
+ imgselection.removeEventListener('click', clickHandler)
+buttonElement.addEventListener('click', TheResult) ;
+
+function TheResult () {
+    let ulElement = document.createElement('ul');
+    resultsection.appendChild(ulElement)
+
+    for (let i = 0; i < PickImgObject.all.length; i++) {
+        let li = document.createElement('li');
+        TheResult.append(li);
+        li.textContent = PickImgObject.all[i].name + ' had ' + PickImgObject.all[i].votesNum + ` votes, and had Shown ` + PickImgObject.all[i].Shown ;
+    }
+}
   function getRandomNum(min, max) {
 
     return(Math.floor(Math.random() * (max - min + 1) + min));
