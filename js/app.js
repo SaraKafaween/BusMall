@@ -44,6 +44,8 @@ function PickImgObject(name, src) {
 
 PickImgObject.all = [];
 
+getData ();
+
 for (let i = 0; i < imgArr.length; i++) {
   new PickImgObject(imgArr[i].split('.')[0], imgArr[i]);
 }
@@ -69,6 +71,7 @@ function render() {
   PickImgObject.all[centerRandom].Shown++;
   PickImgObject.all[rightRandom].Shown++;
 
+  localStorage.data = JSON.stringify( PickImgObject.all );
   console.log(PickImgObject.all);
 
 
@@ -89,6 +92,14 @@ function clickHandler(e) {
     render();
     counter++;
   }
+  else {
+    createChart();
+  }
+}
+
+PickImgObject.prototype.getname = function () {
+  console.log('test');
+  
 }
 
 function getRandomNum(min, max) {
@@ -168,4 +179,17 @@ function TheResult(b) {
           }
         }
       } );
+    }
+
+    function getData() {
+      if( localStorage.data ) {
+        let data = JSON.parse( localStorage.data );
+        for( let i = 0; i < data.length; i++ ) {
+          new PickImgObject( data[i].name, data[i].img, data[i].shown, data[i].votes );
+        }
+      } else {
+        for( let i = 0; i < imgArr.length; i++ ) {
+          new PickImgObject( imgArr[i].split( '.' )[0], imgArr[i] );
+        }
+      }
     }
