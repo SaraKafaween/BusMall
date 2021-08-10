@@ -1,3 +1,49 @@
-leftImg {
+
+
+header img{
+    width: 80px;
+    height: 80px;
     float: left;
+padding-left: 0px;
+}
+
+header p{
+    font-size: large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: rgb(3, 56, 3);
+    padding-left: 100px;
+    padding-top: 20px;
+}
+header nav{
+    padding-left: 100px;
+    padding-top: 10px;
+}
+#leftImg , #centerImg, #rightImg{
+    width: 340px;
+    height: 340px;
+    padding-top: 100px;
+}
+
+#leftImg{
+    padding-left: 0px;
+}
+
+#centerImg{
+    padding-left: 9px;
+}
+
+#rightImg{
+    padding-left: 9px;
+}
+html{
+    width: 1074;
+    background-color: rgb(195, 218, 195);
+}
+
+header nav a{
+    display: block, table-row-group ;
+    color: rgb(45, 133, 45) ;
+    text-decoration: none;
+    padding-top: 30px;
+
 }
