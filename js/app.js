@@ -103,23 +103,69 @@ buttonElement.textContent = 'Results';
 resultsection.appendChild(buttonElement);
 buttonElement.onclick = TheResult;
 // imgselection.removeEventListener('click', clickHandler)
-//buttonElement.addEventListener('result', TheResult) ;
+buttonElement.addEventListener('result', TheResult) ;
 function TheResult(b) {
   console.log('TheResult')
 
   let ulElement = document.createElement('ul');
   resultsection.appendChild(ulElement)
-  
+  buttonElement.removeEventListener('result', TheResult) ;
+ 
   if (counter === rounds) {
-     for (let i = 0; i < PickImgObject.all.length; i++) {
-      while (i === PickImgObject.all.length) {
-        break;
-    }
+ 
+    for (let i = 0; i < PickImgObject.all.length; i++) {
       let li = document.createElement('li');
       ulElement.appendChild(li);
       li.textContent = PickImgObject.all[i].name + ' had ' + PickImgObject.all[i].votes + ` votes, and had Shown ` + PickImgObject.all[i].Shown;
-  
-  
-  }
 
+    }
      }}
+
+     
+     function createChart() {
+
+      let nameArr = [];
+      let shownArr = [];
+      let votesArr= [];
+    
+      for(let i = 0; i < PickImgObject.all.length; i++) {
+        nameArr.push(PickImgObject.all[i].name);
+        shownArr.push(PickImgObject.all[i].shown);
+        votesArr.push(PickImgObject.all[i].votes);
+
+
+      }
+    
+      let ctx = document.getElementById( 'myChart' ).getContext( '2d' );
+    
+      let myChart = new Chart( ctx, {
+        type: 'bar',
+        data: {
+          labels: nameArr,
+          datasets: [{
+            label1: '# shown',
+            Label2: '# votes',
+            data: shownArr, votesArr,
+            backgroundColor:
+                    'rgba(255, 99, 132, 0.2)',
+    
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 2
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      } );
+    }
