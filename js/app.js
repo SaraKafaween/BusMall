@@ -94,6 +94,7 @@ function clickHandler(e) {
   }
   else {
     createChart();
+    buttonElement.removeEventListener('result', TheResult) ;
   }
 }
 
@@ -114,22 +115,24 @@ buttonElement.textContent = 'Results';
 resultsection.appendChild(buttonElement);
 buttonElement.onclick = TheResult;
 // imgselection.removeEventListener('click', clickHandler)
-buttonElement.addEventListener('result', TheResult) ;
 function TheResult(b) {
   console.log('TheResult')
 
   let ulElement = document.createElement('ul');
   resultsection.appendChild(ulElement)
-  buttonElement.removeEventListener('result', TheResult) ;
+ // buttonElement.removeEventListener('result', TheResult) ;
  
   if (counter === rounds) {
  
-    for (let i = 0; i < PickImgObject.all.length; i++) {
+    for (let i = 0; i < imgArr.length; i++) {
       let li = document.createElement('li');
       ulElement.appendChild(li);
       li.textContent = PickImgObject.all[i].name + ' had ' + PickImgObject.all[i].votes + ` votes, and had Shown ` + PickImgObject.all[i].Shown;
 
     }
+    buttonElement.removeEventListener('result', TheResult) ;
+
+
      }}
 
      
@@ -146,6 +149,7 @@ function TheResult(b) {
 
 
       }
+
     
       let ctx = document.getElementById( 'myChart' ).getContext( '2d' );
     
